@@ -1,0 +1,102 @@
+package com.example.myapplication
+
+import android.os.Bundle
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.foundation.layout.*
+import androidx.compose.material3.*
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.graphics.Color
+
+class MainActivity : ComponentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContent {
+            GuiaTurismoTheme {
+                PantallaGuiaTurismo()
+            }
+        }
+    }
+}
+
+@Composable
+fun PantallaGuiaTurismo() {
+    Scaffold(
+        modifier = Modifier.fillMaxSize()
+    ) { padding ->
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(padding),
+            contentAlignment = Alignment.Center
+        ) {
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center,
+                modifier = Modifier.padding(16.dp)
+            ) {
+                Text(
+                    text = "Guía de Turismo - Arequipa",
+                    style = MaterialTheme.typography.headlineMedium,
+                    textAlign = TextAlign.Center
+                )
+
+                Spacer(modifier = Modifier.height(24.dp))
+
+                Button(onClick = { /* Aquí podrías navegar o mostrar algo */ }) {
+                    Text(text = "Ver lugares turísticos")
+                }
+            }
+        }
+    }
+}
+
+@Composable
+fun GuiaTurismoTheme(
+    darkTheme: Boolean = isSystemInDarkTheme(),
+    content: @Composable () -> Unit
+) {
+    val lightColors = lightColorScheme(
+        primary = Color(0xFF1565C0),
+        secondary = Color(0xFFFF9800),
+        background = Color(0xFFF9F9F9),
+        onPrimary = Color.White
+    )
+
+    val darkColors = darkColorScheme(
+        primary = Color(0xFF1565C0),
+        secondary = Color(0xFFFF9800),
+        background = Color(0xFF121212),
+        onPrimary = Color.White
+    )
+
+    val colorScheme = if (darkTheme) darkColors else lightColors
+
+    MaterialTheme(
+        colorScheme = colorScheme,
+        typography = Typography(),
+        content = content
+    )
+}
+
+@Preview(showBackground = true, name = "Modo Claro")
+@Composable
+fun VistaPreviaClaro() {
+    GuiaTurismoTheme(darkTheme = false) {
+        PantallaGuiaTurismo()
+    }
+}
+
+@Preview(showBackground = true, name = "Modo Oscuro")
+@Composable
+fun VistaPreviaOscuro() {
+    GuiaTurismoTheme(darkTheme = true) {
+        PantallaGuiaTurismo()
+    }
+}
